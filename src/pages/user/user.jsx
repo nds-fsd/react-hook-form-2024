@@ -1,14 +1,13 @@
-import { useParams } from "react-router";
+import { useParams } from 'react-router';
 
 const User = () => {
-    const {userName} = useParams();
+  const { userName } = useParams();
 
-    return (
-        <div>
-            <h1> Hello {userName} </h1>
-        </div>
-    )
-
+  return (
+    <div>
+      <h1> Hello {userName} </h1>
+    </div>
+  );
 };
 
 export default User;
