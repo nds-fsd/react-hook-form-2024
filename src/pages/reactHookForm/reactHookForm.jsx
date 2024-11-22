@@ -1,6 +1,13 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 const RegisterForm = ({user}) => {
+    const navigate = useNavigate();
+
+    // Other way to navigate to other page
+    const navigateToPage = (name) => {
+        navigate('/user/' + name);
+    }
 
     const {register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: user
@@ -8,6 +15,7 @@ const RegisterForm = ({user}) => {
 
     const onSubmit = (data) => {
         console.log(data);
+        navigateToPage(data.name);
     }
 
     const name = watch("name");
@@ -36,7 +44,6 @@ const RegisterForm = ({user}) => {
             <span>Accept policies</span>
             <input type="checkbox" {...register("policy")} /><br></br>
             <input type="Submit" value="Submit"/>
-            <p> Hello {name} </p>
         </form>
     )
 };
