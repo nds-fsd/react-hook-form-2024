@@ -1,7 +1,11 @@
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router';
+import { api } from '../../utils/apiWrapper';
 
 const RegisterForm = ({ user }) => {
+  const queryClient = useQueryClient();
+
   const navigate = useNavigate();
 
   // Other way to navigate to other page
@@ -18,14 +22,28 @@ const RegisterForm = ({ user }) => {
     defaultValues: user,
   });
 
+  const createUser = (data) => {
+    return api.post('/users', data);
+  };
+
+  const mutation = useMutation(createUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('users');
+    },
+    onError: (error) => {
+        console.log(error);
+    }
+});
+
+
   const onSubmit = (data) => {
     console.log(data);
+    mutation.mutate(data);
     navigateToPage(data.name);
   };
 
   const name = watch('name');
 
-  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
