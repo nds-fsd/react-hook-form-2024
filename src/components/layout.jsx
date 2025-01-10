@@ -1,6 +1,13 @@
 import { Link, Outlet } from 'react-router';
+import { getUserToken } from '../utils/localStorage.utils';
+import Logout from '../pages/logout/logout';
 
-const Layout = () => {
+const Layout = ({forceUpdate}) => {
+  const token = getUserToken();
+
+  console.log(token);
+  const isLogged = !!token;
+
   return (
     <div>
       {/* A "layout route" is a good place to put markup you want to
@@ -11,10 +18,14 @@ const Layout = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/register">Register html</Link>
+            {!isLogged && <Link to="/registerForm">Register react hook form</Link>}
           </li>
           <li>
-            <Link to="/registerForm">Register react hook form</Link>
+            {!isLogged && <Link to="/login">Login</Link>}
+          </li>
+
+          <li>
+            {isLogged && <Logout forceUpdate={forceUpdate}/>}
           </li>
         </ul>
       </nav>

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router';
 import { api } from '../../utils/apiWrapper';
+import { setUserSession } from '../../utils/localStorage.utils';
 
 const RegisterForm = ({ user }) => {
   const queryClient = useQueryClient();
@@ -23,11 +24,12 @@ const RegisterForm = ({ user }) => {
   });
 
   const createUser = (data) => {
-    return api.post('/users', data);
+    return api.post('/auth/register', data);
   };
 
   const mutation = useMutation(createUser, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUserSession(data);
       queryClient.invalidateQueries('users');
     },
     onError: (error) => {
