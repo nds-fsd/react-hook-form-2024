@@ -10,6 +10,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 import { getUserToken } from './utils/localStorage.utils';
 import Login from './pages/login/login';
+import RefExample from './pages/refExample/refExample';
+import MemoExample from './pages/memoExample/memoExample';
+import CallbackExample from './pages/callbackExample/callbackExample';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +29,9 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login forceUpdate={() => setForceUpdate(!forceUpdate)} />} />
             <Route path="registerForm" element={<RegisterForm />} />
+            <Route path="ref" element={<RefExample />} />
+            <Route path="memo" element={<MemoExample />} />
+            <Route path="callback" element={<CallbackExample />} />
             <Route path="user/:userName" element={<User />} />
 
             {/* Using path="*"" means "match anything", so this route
